@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    colors="true">
+
+    <testsuites>
+        <testsuite name="testes-de-unidades">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <testdoxText outputFile="testes-executados.txt"/>
+        <testdoxHtml outputFile="testes-executados.html"/>
+    </logging>
+</phpunit>
