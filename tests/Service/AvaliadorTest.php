@@ -11,6 +11,13 @@ use PHPUnit\Framework\TestCase;
 
 class AvaliadorTest extends TestCase
 {
+    private $leiloeiro;
+
+    protected function setUp(): void
+    {
+        $this->leiloeiro = new Avaliador();
+    }
+
     #[DataProvider('leilaoEmOrdemAleatoria')]
     #[DataProvider('leilaoEmOrdemCrescente')]
     #[DataProvider('leilaoEmOrdemDecrescente')]
@@ -18,12 +25,10 @@ class AvaliadorTest extends TestCase
     {
         // Arrumo a casa para o teste (Arrange / Given). Foi movido para o parâmetro
 
-        $leiloeiro = new Avaliador;
-
         // Executo o código a ser testado (Act / When)
-        $leiloeiro->avalia($leilao);
+        $this->leiloeiro->avalia($leilao);
 
-        $maiorValor = $leiloeiro->getMaiorvalor();
+        $maiorValor = $this->leiloeiro->getMaiorvalor();
 
         // Verifico se a saída é a esperada (Assert / Then )
         self::assertEquals(2500, $maiorValor);
@@ -36,12 +41,10 @@ class AvaliadorTest extends TestCase
     {
         // Arrumo a casa para o teste (Arrange / Given). Foi movido para o parâmetro
 
-        $leiloeiro = new Avaliador;
-
         // Executo o código a ser testado (Act / When)
-        $leiloeiro->avalia($leilao);
+        $this->leiloeiro->avalia($leilao);
 
-        $menorValor = $leiloeiro->getMenorValor();
+        $menorValor = $this->leiloeiro->getMenorValor();
 
         // Verifico se a saída é a esperada (Assert / Then )
         self::assertEquals(1700, $menorValor);
@@ -57,10 +60,9 @@ class AvaliadorTest extends TestCase
     #[DataProvider('leilaoEmOrdemDecrescente')]
     public function testAvaliadorDeveBuscar3MaioresValores(Leilao $leilao)
     {
-        $leiloeiro = new Avaliador();
-        $leiloeiro->avalia($leilao);
+        $this->leiloeiro->avalia($leilao);
 
-        $maiores = $leiloeiro->getMaioreslances();
+        $maiores = $this->leiloeiro->getMaioreslances();
 
         static::assertCount(3, $maiores);
         static::assertEquals(2500, $maiores[0]->getValor());
