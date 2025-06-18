@@ -6,13 +6,14 @@ class Leilao
 {
     /** @var Lance[] */
     private $lances;
-    /** @var string */
-    private $descricao;
+    private string $descricao;
+    public bool $finalizado;
 
     public function __construct(string $descricao)
     {
         $this->descricao = $descricao;
         $this->lances = [];
+        $this->finalizado = false;
     }
 
     public function recebeLance(Lance $lance)
@@ -36,6 +37,16 @@ class Leilao
     public function getLances(): array
     {
         return $this->lances;
+    }
+
+    public function finaliza()
+    {
+        $this->finalizado = true;
+    }
+
+    public function estaFinalizado()
+    {
+        return $this->finalizado;
     }
 
     private function ehDoUltimoUsuario(Lance $lance): bool

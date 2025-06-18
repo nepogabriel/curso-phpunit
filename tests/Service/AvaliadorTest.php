@@ -97,6 +97,19 @@ class AvaliadorTest extends TestCase
         $this->leiloeiro->avalia($leilao);
     }
 
+    
+    public function testLeilaoFinalizadoNaoPodeSerAvaliado()
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Leilão já finalizado.');
+
+        $leilao = new Leilao('Fiat 147');
+        $leilao->recebeLance(new Lance(New Usuario('Maria'), 2000));
+        $leilao->finaliza();
+
+        $this->leiloeiro->avalia($leilao);
+    }
+
     public static function leilaoEmOrdemDecrescente(): array
     {
         // Arrumo a casa para o teste (Arrange / Given)
