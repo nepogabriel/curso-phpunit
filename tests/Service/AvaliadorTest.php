@@ -70,24 +70,6 @@ class AvaliadorTest extends TestCase
         static::assertEquals(1700, $maiores[2]->getValor());
     }
 
-    public static function leilaoEmOrdemCrescente(): array
-    {
-        // Arrumo a casa para o teste (Arrange / Given)
-        $leilao = new Leilao('Vw Polo Preto 2007 de Cria');
-
-        $maria = new Usuario('Maria');
-        $joao = new Usuario('Joao');
-        $ana = new Usuario('Ana');
-
-        $leilao->recebeLance(new Lance($ana, 1700));
-        $leilao->recebeLance(new Lance($joao, 2000));
-        $leilao->recebeLance(new Lance($maria, 2500));
-
-        return [
-            'ordem-crescente' => [$leilao]
-        ];
-    }
-
     public function testLeilaoVazioNaoPodeSerAvaliado()
     {
         $this->expectException(\DomainException::class);
@@ -108,6 +90,24 @@ class AvaliadorTest extends TestCase
         $leilao->finaliza();
 
         $this->leiloeiro->avalia($leilao);
+    }
+
+    public static function leilaoEmOrdemCrescente(): array
+    {
+        // Arrumo a casa para o teste (Arrange / Given)
+        $leilao = new Leilao('Vw Polo Preto 2007 de Cria');
+
+        $maria = new Usuario('Maria');
+        $joao = new Usuario('Joao');
+        $ana = new Usuario('Ana');
+
+        $leilao->recebeLance(new Lance($ana, 1700));
+        $leilao->recebeLance(new Lance($joao, 2000));
+        $leilao->recebeLance(new Lance($maria, 2500));
+
+        return [
+            'ordem-crescente' => [$leilao]
+        ];
     }
 
     public static function leilaoEmOrdemDecrescente(): array
